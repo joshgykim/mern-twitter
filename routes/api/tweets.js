@@ -1,6 +1,3 @@
-const express = require("express");
-const router = express.Router();
-
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -32,24 +29,6 @@ router.get('/:id', (req, res) => {
             res.status(404).json({ notweetfound: 'No tweet found with that ID' })
         );
 });
-
-router.post('/',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      const { errors, isValid } = validateTweetInput(req.body);
-  
-      if (!isValid) {
-        return res.status(400).json(errors);
-      }
-  
-      const newTweet = new Tweet({
-        text: req.body.text,
-        user: req.user.id
-      });
-  
-      newTweet.save().then(tweet => res.json(tweet));
-    }
-);
 
 router.post('/',
     passport.authenticate('jwt', { session: false }),
